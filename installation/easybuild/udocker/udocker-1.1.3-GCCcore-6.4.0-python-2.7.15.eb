@@ -1,0 +1,81 @@
+easyblock = 'PythonPackage'
+
+name = 'udocker'
+version = '1.1.3'
+versionsuffix = '-python-%(pyver)s'
+
+homepage = 'https://github.com/indigo-dc/udocker'
+description = """A basic user tool to execute simple docker containers in batch
+ or interactive systems without root privileges."""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = ['https://github.com/indigo-dc/udocker/archive/']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [
+  ('Python', '2.7.15'),
+  ('setuptools', '40.4.3', versionsuffix),
+  ('pip','18.1', versionsuffix),
+  ('cURL','7.61.1')
+]
+
+use_pip = True
+
+sanity_check_paths = {
+    'files': ['bin/udocker'],
+    'dirs': [],
+}
+
+options = {'modulename': False}
+postinstallcmds = ['./udocker install']
+
+moduleclass = 'tools'
+modluafooter = 'setenv("UDOCKER_DIR", os.getenv("STORE") .. "/udocker")'
+
+modluafooter += '\nadd_property("type0","area_tools")'
+
+usage = """
+\033[94mINTERACTIVE USE:\033[0m
+\tmodule load ]] .. modhier() .. [[\n\n
+\tDownload container:
+\t\tudocker pull <Repo/Image:Tag>\n
+\tQuery available images:
+\t\tudocker images\n
+\tQuery local repo path:
+\t\techo $UDOCKER_DIR\n
+\tRun container:
+\t\tudocker run <Container-id-or-name>\n
+\tExecute command (image MUST support the command):
+\t\tudocker run <Container> <Command>\n
+\tOpen shell (image MUST support the shell):
+\t\tudocker run <Container> /bin/bash\n
+\tQuery active containers:
+\t\tudocker ps\n
+\tSearch images:
+\t\tudocker search <String>\n
+\tRemove local image:
+\t\tudocker rmi <Image>
+
+\033[94mRECOMENDED OPTIONS:\033[0m
+
+
+\033[94mSPECIFIC INFO:\033[0m
+\tudocker help
+\tudocker <Command> --help
+"""
+
+examples = """
+Run hello world like container and remove it:\n
+\tmodule load ]] .. modhier() .. [[\n
+\tudocker pull godlovedc/lolcow:latest
+\tudocker images
+\tudocker create --name='MyContainer' godlovedc/lolcow:latest
+\tudocker run 'MyContainer'
+\tudocker ps
+\tudocker rm 'MyContainer'
+\tudocker ps
+
+"""
+
+docurls = [ 'https://indigo-dc.gitbooks.io/udocker/content/' ]

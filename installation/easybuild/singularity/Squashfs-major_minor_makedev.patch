@@ -1,0 +1,20 @@
+--- squashfs-tools/mksquashfs.c.orig	2019-04-08 12:53:29.366041728 +0200
++++ squashfs-tools/mksquashfs.c	2019-04-08 12:54:18.995619376 +0200
+@@ -35,6 +35,7 @@
+ #include <stddef.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <dirent.h>
+--- squashfs-tools/unsquashfs.c.orig	2019-04-08 12:53:39.543160194 +0200
++++ squashfs-tools/unsquashfs.c	2019-04-08 12:56:06.338868260 +0200
+@@ -35,6 +35,7 @@
+ #include <sys/types.h>
+ #include <sys/time.h>
+ #include <sys/resource.h>
++#include <sys/sysmacros.h>
+ #include <limits.h>
+ #include <ctype.h>
+ 

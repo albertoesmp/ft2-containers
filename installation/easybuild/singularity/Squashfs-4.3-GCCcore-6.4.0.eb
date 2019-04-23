@@ -1,0 +1,56 @@
+easyblock = 'ConfigureMake'
+
+name = 'Squashfs'
+version = '4.3'
+
+homepage = "http://squashfs.sourceforge.net/"
+description = """
+Squashfs is a compressed read-only file system for Linux. Squashfs
+compresses  files, inodes and directories, and supports block sizes from
+4 KiB up to 1 MiB for greater compression.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+start_dir = 'squashfs-tools'
+sources = [{
+    'source_urls': ['https://netcologne.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/'],
+    'filename': '%(namelower)s%(version)s.tar.gz',
+    'download_filename': '%(namelower)s%(version)s.tar.gz',
+    'extract_cmd': "tar xfvz %s",
+}]
+
+patches = [ 'Squashfs-major_minor_makedev.patch', ]
+
+builddependencies = [
+    ('binutils', '2.31.1'),
+]
+
+dependencies = [
+   ('zlib', '1.2.11'),
+]
+
+
+skipsteps = ['configure']
+installopts='INSTALL_DIR=%(installdir)s'
+
+modextrapaths = {'PATH': ['.']}
+
+sanity_check_paths = {
+    'files': ['mksquashfs', 'unsquashfs'],
+    'dirs': [],
+}
+
+moduleclass = 'base'
+
+modluafooter = 'add_property("type0","area_tools")'
+
+usage = """
+\033[94mINTERACTIVE USE:\033[0m
+\tmodule load ]] .. modhier() .. [[\n
+
+\033[94mRECOMENDED OPTIONS:\033[0m
+
+\033[94mSPECIFIC INFO:\033[0m
+"""
+

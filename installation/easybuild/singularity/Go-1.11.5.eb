@@ -1,0 +1,43 @@
+easyblock = 'Tarball'
+
+name = 'go'
+version = '1.11.5'
+
+homepage = 'http://www.golang.org'
+description = """
+Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+"""
+
+toolchain = {'name': 'dummy', 'version': ''}
+
+sources = ['%(namelower)s%(version)s.linux-amd64.tar.gz']
+source_urls = ['https://storage.googleapis.com/golang/']
+
+sanity_check_paths = {
+    'files': ['go/bin/go', 'go/bin/gofmt'],
+    'dirs': ['go/api', 'go/doc', 'go/lib', 'go/pkg'],
+}
+
+modextravars = {
+    'GOROOT': '%(installdir)s/go',
+#Documentar
+#    'GOPATH': '/opt/cesga/singularity/gopath'
+}
+
+modextrapaths = {'PATH': ['./go/bin']}
+
+moduleclass = 'compiler'
+
+
+modluafooter = 'add_property("type0","area_compiler")'
+
+usage = """
+\033[94mINTERACTIVE USE:\033[0m
+\tmodule load ]] .. modhier() .. [[\n
+
+\033[94mRECOMENDED OPTIONS:\033[0m
+
+\033[94mSPECIFIC INFO:\033[0m
+"""
+
+docurls = [ 'https://golang.org/doc/' ]
